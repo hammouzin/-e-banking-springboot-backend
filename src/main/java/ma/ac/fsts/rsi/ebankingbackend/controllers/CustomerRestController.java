@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-
+@CrossOrigin("*")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
 
@@ -44,5 +44,10 @@ public class CustomerRestController {
     @DeleteMapping("/customers/{id}")
     public void deleteCustomer(@PathVariable Long id) {
         bankAccountService.deleteCusomer(id);
+    }
+
+    @GetMapping("customers/search")
+    public List<CustomerDTO> searchCustomer(@RequestParam (name = "keyword", defaultValue = "") String keyword) {
+        return bankAccountService.searchCustomers("%" + keyword + "%");
     }
 }
